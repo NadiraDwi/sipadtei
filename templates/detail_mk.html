@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Mata Kuliah</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Daftar Mata Kuliah</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Kode MK</th>
+                <th>Mata Kuliah</th>
+                <th>Kategori</th>
+                <th>Dosen</th>
+                <th>Offering</th>
+                <th>Hari</th>
+                <th>Jam Awal</th>
+                <th>Jam Akhir</th>
+                <th>Kode Ruang</th>
+                <th>Max Peserta</th>
+                <th>Jumlah Peserta</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mk in mata_kuliah %}
+            <tr>
+                <td>{{ mk.kode_mk }}</td>
+                <td>{{ mk.mata_kuliah }}</td>
+                <td>{{ mk.kategori }}</td>
+                <td>{{ mk.dosen }}</td>
+                <td>{{ mk.offering }}</td>
+                <td>{{ mk.hari }}</td>
+                <td>{{ mk.jam_awal }}</td>
+                <td>{{ mk.jam_akhir }}</td>
+                <td>{{ mk.kode_ruang }}</td>
+                <td>{{ mk.max_peserta }}</td>
+                <td>{{ mk.jml_peserta }}</td>
+                <td>{{ mk.admin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
