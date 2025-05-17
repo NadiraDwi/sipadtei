@@ -3,10 +3,10 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE v4 | Dashboard</title>
+    <title>SIPADTEI | Dashboard</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="AdminLTE v4 | Dashboard" />
+    <meta name="title" content="SIPADTEI | Dashboard" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
@@ -268,7 +268,7 @@
         <!--begin::Sidebar Brand-->
         <div class="sidebar-brand">
           <!--begin::Brand Link-->
-          <a href="./index.html" class="brand-link">
+          <a href="/dashboard" class="brand-link">
             <!--begin::Brand Image-->
             <img
               src="{{url_for ('static', filename='dist/assets/img/AdminLTELogo.png')}}"
@@ -277,7 +277,7 @@
             />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">AdminLTE 4</span>
+            <span class="brand-text fw-light">SIPADTEI</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -295,9 +295,22 @@
             >
               <li class="nav-header">DASHBOARD</li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="/dashboard" class="nav-link">
                   <i class="nav-icon bi bi-download"></i>
                   <p>Dashboard</p>
+                </a>
+            </ul>
+                        <ul
+              class="nav sidebar-menu flex-column"
+              data-lte-toggle="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <li class="nav-header">KELOLA AKUN</li>
+              <li class="nav-item">
+                <a href="/profile" class="nav-link">
+                  <i class="nav-icon bi bi-download"></i>
+                  <p>Profile</p>
                 </a>
             </ul>
             <!--end::Sidebar Menu-->

@@ -148,6 +148,49 @@
         <!--end::Col-->
       </div>
       <!--end::Row-->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">DAFTAR MATAKULIAH KESELURUHAN</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th style="width: 10px">Kode_mk</th>
+                <th>Mata Kuliah</th>
+                <th>Kategori</th>
+                <th>Dosen</th>
+                <th>Offering</th>
+                <th>Hari</th>
+                <th>Jam Ke-</th>
+                <th>Kode Ruang</th>
+                <th>Max Peserta</th>
+                <th>Jumlah Peserta</th>
+                <th>Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for mk in mata_kuliah %}
+              <tr>
+                  <td>{{ mk.kode_mk }}</td>
+                  <td>{{ mk.mata_kuliah }}</td>
+                  <td>{{ mk.kategori }}</td>
+                  <td>{{ mk.dosen | safe}}</td>
+                  <td>{{ mk.offering }}</td>
+                  <td>{{ mk.hari }}</td>
+                  <td>{{ mk.jam_awal }} - {{ mk.jam_akhir }}</td>
+                  <td>{{ mk.kode_ruang }}</td>
+                  <td>{{ mk.max_peserta }}</td>
+                  <td>{{ mk.jml_peserta }}</td>
+                  <td>{{ mk.admin }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
     </div>
     <!--end::Container-->
   </div>

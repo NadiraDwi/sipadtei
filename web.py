@@ -5,6 +5,7 @@ from dashboard import dashboard_bp
 from detail_mk import detailmk_bp
 
 app = Flask(__name__)
+app.secret_key = 'sipadtei2025'
 
 # Daftarkan semua blueprint
 app.register_blueprint(auth_bp)
