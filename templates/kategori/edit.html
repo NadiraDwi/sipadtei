@@ -1,17 +1,28 @@
 {% include 'header.html' %}
 <main class="app-main">
   <div class="container mt-4">
-    <h3>Edit Kategori</h3>
     <div class="col-6">
-      <form method="POST">
-      <div class="mb-3">
-        <label for="nama_kategori" class="form-label">Nama Kategori</label>
-        <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" value="{{ kategori.nama_kategori }}" required>
+      <div class="card card-primary card-outline mb-4">
+        <div class="card-header"><div class="card-title">Tambah Kategori</div></div>
+        <form method="POST">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nama Kategori</label>
+              <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" value="{{ kategori.get_nama() }}" required>
+            </div>
+          </div>
+          <!--end::Body-->
+          <!--begin::Footer-->
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            <a href="{{ url_for('kategori.kategori') }}" class="btn btn-secondary">Kembali</a>
+          </div>
+          <!--end::Footer-->
+        </form>
+        <!--end::Form-->
       </div>
-      <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-      <a href="{{ url_for('kategori.kategori') }}" class="btn btn-secondary">Kembali</a>
-    </form>
     </div>
   </div>
 </main>
 {% include 'footer.html' %}
+
