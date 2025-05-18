@@ -1,0 +1,17 @@
+{% include 'header.html' %}
+<main class="app-main">
+  <div class="container mt-4">
+    <h3>Tambah Kategori</h3>
+    <div class="col-6">
+      <form method="POST" action="{{ url_for('kategori.tambah_kategori') }}">
+      <div class="mb-3">
+        <label for="nama_kategori" class="form-label">Nama Kategori</label>
+        <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Simpan</button>
+      <a href="{{ url_for('kategori.kategori') }}" class="btn btn-secondary">Kembali</a>
+    </form>
+    </div>
+  </div>
+</main>
+{% include 'footer.html' %}

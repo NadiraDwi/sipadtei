@@ -24,6 +24,8 @@
       integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
       crossorigin="anonymous"
     />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!--end::Fonts-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <link
@@ -262,6 +264,16 @@
         </div>
         <!--end::Container-->
       </nav>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
       <!--end::Header-->
       <!--begin::Sidebar-->
       <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
@@ -271,7 +283,7 @@
           <a href="/dashboard" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="{{url_for ('static', filename='dist/assets/img/AdminLTELogo.png')}}"
+              src="{{url_for ('static', filename='dist/assets/img/Logo.png')}}"
               alt="AdminLTE Logo"
               class="brand-image opacity-75 shadow"
             />
@@ -296,11 +308,24 @@
               <li class="nav-header">DASHBOARD</li>
               <li class="nav-item">
                 <a href="/dashboard" class="nav-link">
-                  <i class="nav-icon bi bi-download"></i>
+                  <i class="fa-solid fa-house-user"></i>
                   <p>Dashboard</p>
                 </a>
             </ul>
-                        <ul
+            <ul
+              class="nav sidebar-menu flex-column"
+              data-lte-toggle="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <li class="nav-header">KELOLA DATA</li>
+              <li class="nav-item">
+                <a href="/kategori" class="nav-link">
+                  <i class="fa-solid fa-list"></i>
+                  <p>Kategori</p>
+                </a>
+            </ul>
+            <ul
               class="nav sidebar-menu flex-column"
               data-lte-toggle="treeview"
               role="menu"
@@ -309,7 +334,7 @@
               <li class="nav-header">KELOLA AKUN</li>
               <li class="nav-item">
                 <a href="/profile" class="nav-link">
-                  <i class="nav-icon bi bi-download"></i>
+                  <i class="fa-solid fa-user"></i>
                   <p>Profile</p>
                 </a>
             </ul>
