@@ -25,7 +25,7 @@
     <!--begin::Container-->
     <div class="container-fluid">
       <div>
-        <a class="btn btn-success" href=""><i class="fa-regular fa-square-plus"></i> Tambah Data</a>
+        <a class="btn btn-success" href="{{ url_for('ruang.tambah_ruang') }}"><i class="fa-regular fa-square-plus"></i> Tambah Data</a>
       </div>
     <br>
     <div class="card mb-4">
@@ -59,8 +59,8 @@
               <td>{{ r.ruang }}</td>
               <td>{{ r.max_peserta }}</td>
               <td>
-                <a href="#" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                <form action="#" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin?')">
+                <a href="{{ url_for('ruang.edit_ruang', kode_ruang=r.kode_ruang)}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                <form action="{{ url_for('ruang.hapus_ruang', kode_ruang=r.kode_ruang)}}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin?')">
                   <button class="btn btn-danger btn-sm"><i class="fa-regular fa-trash-can"></i> Hapus</button>
                 </form>
               </td>

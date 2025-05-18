@@ -5,6 +5,9 @@ class Kategori:
         self.__id_kategori = id_kategori
         self.__nama_kategori = nama_kategori
 
+    def info(self):
+        return f"Kategori: {self.get_nama()}"
+
     def get_id(self):
         return self.__id_kategori
 
