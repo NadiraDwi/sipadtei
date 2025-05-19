@@ -55,16 +55,16 @@ class Dosen:
         conn.close()
         return Dosen(row['nidn'], row['nama_dosen'], row['jabatan']) if row else None
 
-    # def update(self):
-    #     conn = get_db_connection()
-    #     cursor = conn.cursor()
-    #     cursor.execute(
-    #         "UPDATE kategori SET nama_kategori = %s WHERE id_kategori = %s",
-    #         (self.__nama_kategori, self.__id_kategori)
-    #     )
-    #     conn.commit()
-    #     cursor.close()
-    #     conn.close()
+    def update(self):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE dosen SET nama_dosen = %s, jabatan = %s WHERE nidn = %s",
+            (self.__nama_dosen, self.__jabatan, self.__nidn)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
 
     def hapus(self):
         conn = get_db_connection()

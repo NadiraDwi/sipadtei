@@ -51,17 +51,17 @@
                 <td>{{ dos.get_nama() }}</td>
                 <td>{{ dos.get_jabatan() }}</td>
                 <td>
-                  <a href="{{ url_for('kategori.edit_kategori', id=dos.get_nidn())}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                  <a href="{{ url_for('dosen.edit_dosen', id=dos.get_nidn())}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 
                   <form action="{{ url_for('dosen.hapus_dosen', id=dos.get_nidn()) }}" method="POST"
-                        onsubmit="return confirm('Yakin ingin menghapus kategori ini?');" style="display:inline-block;">
+                        onsubmit="return confirm('Yakin ingin menghapus dosen ini?');" style="display:inline-block;">
                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa-regular fa-trash-can"></i> Hapus</button>
                   </form>
                 </td>
                 </tr>
                 {% endfor %}
             {% else %}
-                <tr><td colspan="3" class="text-center">Belum ada data kategori</td></tr>
+                <tr><td colspan="3" class="text-center">Belum ada data dosen</td></tr>
             {% endif %}
             </tbody>
           </table>

@@ -3,20 +3,20 @@
   <div class="container mt-4">
     <div class="col-6">
       <div class="card card-primary card-outline mb-4">
-        <div class="card-header"><div class="card-title">Tambah Dosen</div></div>
-        <form method="POST" action="{{ url_for('dosen.tambah_dosen') }}">
+        <div class="card-header"><div class="card-title">Edit Dosen</div></div>
+        <form method="POST">
           <div class="card-body">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">NIDN</label>
-              <input type="text" class="form-control" id="nidn" name="nidn" required>
+              <input type="text" class="form-control" id="nidn" name="nidn" value="{{ dosen.get_nidn() }}" readonly>
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Nama Dosen</label>
-              <input type="text" class="form-control" id="nama_dosen" name="nama_dosen" required>
+              <input type="text" class="form-control" id="nama_dosen" name="nama_dosen" value="{{ dosen.get_nama() }}" required>
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Jabatan</label>
-              <input type="text" class="form-control" id="jabatan" name="jabatan" required>
+              <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ dosen.get_jabatan() }}" required>
             </div>
           </div>
           <!--end::Body-->

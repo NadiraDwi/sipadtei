@@ -32,22 +32,24 @@ def tambah_dosen():
 
     return render_template("dosen/add.html")
 
-# @kategori_bp.route("/kategori/edit/<id>", methods=["GET", "POST"])
-# def edit_kategori(id):
-#     kategori = Kategori.cari(id)
+@dosen_bp.route("/dosen/edit/<id>", methods=["GET", "POST"])
+def edit_dosen(id):
+    dosen = Dosen.cari(id)
 
-#     if not kategori:
-#         flash("Kategori tidak ditemukan!", "danger")
-#         return redirect(url_for("kategori.kategori"))
+    if not dosen:
+        flash("Dosen tidak ditemukan!", "danger")
+        return redirect(url_for("dosen.dosen"))
 
-#     if request.method == "POST":
-#         nama_baru = request.form["nama_kategori"]
-#         kategori.set_nama(nama_baru)
-#         kategori.update()
-#         flash("Kategori berhasil diperbarui.", "success")
-#         return redirect(url_for("kategori.kategori"))
+    if request.method == "POST":
+        nama_baru = request.form["nama_dosen"]
+        jabatan_baru = request.form["jabatan"]
+        dosen.set_nama(nama_baru)
+        dosen.set_jabatan(jabatan_baru)
+        dosen.update()
+        flash("Dosen berhasil diperbarui.", "success")
+        return redirect(url_for("dosen.dosen"))
 
-#     return render_template("kategori/edit.html", kategori=kategori)
+    return render_template("dosen/edit.html", dosen=dosen)
 
 @dosen_bp.route("/dosen/hapus/<id>", methods=["POST"])
 def hapus_dosen(id):
