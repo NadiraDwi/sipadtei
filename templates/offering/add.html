@@ -1,0 +1,31 @@
+{% include 'header.html' %}
+<main class="app-main">
+  <div class="container mt-4">
+    <div class="col-6">
+      <div class="card card-primary card-outline mb-4">
+        <div class="card-header"><div class="card-title">Tambah Offering</div></div>
+        <form method="POST" action="{{ url_for('offering.tambah_offering') }}">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Kode Offering</label>
+              <input type="text" class="form-control" id="kode_off" name="kode_off" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nama Offering</label>
+              <input type="text" class="form-control" id="nama_off" name="nama_off" required>
+            </div>
+          </div>
+          <!--end::Body-->
+          <!--begin::Footer-->
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url_for('offering.offering') }}" class="btn btn-secondary">Kembali</a>
+          </div>
+          <!--end::Footer-->
+        </form>
+        <!--end::Form-->
+      </div>
+    </div>
+  </div>
+</main>
+{% include 'footer.html' %}
