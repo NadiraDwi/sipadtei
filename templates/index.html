@@ -148,9 +148,18 @@
         <!--end::Col-->
       </div>
       <!--end::Row-->
-      <div class="card mb-4">
+      <div class="card mb-12">
         <div class="card-header">
-          <h3 class="card-title">DAFTAR MATAKULIAH KESELURUHAN</h3>
+          <div class="row w-100 align-items-center">
+            <div class="col">
+              <h3 class="card-title m-0">DAFTAR MATAKULIAH KESELURUHAN</h3>
+            </div>
+            <div class="col-auto">
+              <a class="btn btn-light" href="{{ url_for('ruang.tambah_ruang') }}">
+                <i class="fa-regular fa-square-plus"></i> Tambah Data
+              </a>
+            </div>
+          </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
