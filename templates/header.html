@@ -24,6 +24,11 @@
       integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
       crossorigin="anonymous"
     />
+    <!-- jQuery (required by Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!--end::Fonts-->
@@ -264,16 +269,6 @@
         </div>
         <!--end::Container-->
       </nav>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
-              {{ message }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
       <!--end::Header-->
       <!--begin::Sidebar-->
       <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
@@ -327,26 +322,20 @@
               </li>
               <li class="nav-item">
                   <a href="/ruang" class="nav-link">
-                  <i class="fa-solid fa-list"></i>
+                  <i class="fa-solid fa-landmark"></i>
                   <p>Ruang</p>
                 </a>
               </li>
               <li class="nav-item">
                   <a href="/offering" class="nav-link">
-                  <i class="fa-solid fa-list"></i>
+                  <i class="fa-solid fa-users-rectangle"></i>
                   <p>Offering</p>
                 </a>
               </li>
               <li class="nav-item">
                   <a href="/dosen" class="nav-link">
-                  <i class="fa-solid fa-list"></i>
+                  <i class="fa-solid fa-chalkboard-user"></i>
                   <p>Dosen</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                  <a href="/offering" class="nav-link">
-                  <i class="fa-solid fa-list"></i>
-                  <p>Jadwal</p>
                 </a>
               </li>
             </ul>

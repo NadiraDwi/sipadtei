@@ -1,0 +1,182 @@
+{% include 'header.html' %}
+
+<main class="app-main">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card card-warning card-outline mb-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Edit Mata Kuliah</h5>
+          </div>
+
+          <div class="card-body">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="">
+              <div class="row mb-3">
+                <!-- Kode MK -->
+                <div class="col-md-6">
+                  <label for="kode_mk" class="form-label">Kode MK</label>
+                  <input 
+                    type="text" 
+                    id="kode_mk" 
+                    name="kode_mk" 
+                    class="form-control" 
+                    value="{{ detail.kode_mk }}" 
+                    readonly>
+                </div>
+
+                <!-- Mata Kuliah -->
+                <div class="col-md-6">
+                  <label for="mata_kuliah" class="form-label">Mata Kuliah</label>
+                  <input 
+                    type="text" 
+                    id="mata_kuliah" 
+                    name="mata_kuliah" 
+                    class="form-control" 
+                    value="{{ request.form.mata_kuliah if request.method == 'POST' else detail.mata_kuliah }}" 
+                    required>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <!-- Kategori -->
+                <div class="col-md-6">
+                  <label for="id_kategori" class="form-label">Kategori</label>
+                  <select id="id_kategori" name="id_kategori" class="form-select" required>
+                    <option value="" disabled {% if not request.form.get('id') %}selected{% endif %}>Pilih Kategori</option>
+                    {% for k in kategori %}
+                    <option value="{{ k.get_id() }}" {% if request.form.get('id') == k.get_id()|string %}selected{% endif %}>{{ k.get_nama() }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Offering -->
+                <div class="col-md-6">
+                  <label for="id_off" class="form-label">Offering</label>
+                  <select id="id_off" name="id_off" class="form-select" required>
+                    <option value="" disabled {% if not request.form.get('id_off') %}selected{% endif %}>Pilih Offering</option>
+                    {% for o in offering %}
+                    <option value="{{ o.get_id() }}" {% if request.form.get('id_off') == o.get_id()|string %}selected{% endif %}>{{ o.get_nama() }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Dosen -->
+              <div class="mb-3">
+                <label for="nidn" class="form-label">Dosen (bisa pilih lebih dari satu)</label>
+                <select id="nidn" name="nidn[]" class="form-control select2-multiple" multiple required>
+                  {% set selected_dosen = request.form.getlist('nidn[]') or existing_nidns %}
+                  {% for d in dosen %}
+                    <option value="{{ d.get_nidn() }}" {% if d.get_nidn() in selected_dosen %}selected{% endif %}>{{ d.get_nama() }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              
+              <div class="row mb-3">
+                <!-- Hari -->
+                <div class="col-md-6">
+                  <label for="hari" class="form-label">Hari</label>
+                  <select id="hari" name="hari" class="form-select" required>
+                    <option disabled {% if not (request.form.get('hari') or detail.hari) %}selected{% endif %}>Pilih Hari</option>
+                    {% for h in hari %}
+                      {% set selected_hari = request.form.get('hari') if request.method == 'POST' else detail.hari %}
+                      <option value="{{ h }}" {% if selected_hari == h %}selected{% endif %}>{{ h }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <!-- Ruang -->
+                <div class="col-md-6">
+                  <label for="kode_ruang" class="form-label">Ruang</label>
+                  <select id="kode_ruang" name="kode_ruang" class="form-select" required>
+                    <option disabled {% if not (request.form.get('kode_ruang') or detail.kode_ruang) %}selected{% endif %}>Pilih Ruang</option>
+                    {% set selected_ruang = request.form.get('kode_ruang') if request.method == 'POST' else detail.kode_ruang %}
+                    {% for r in ruang %}
+                      <option value="{{ r.kode_ruang }}" {% if selected_ruang == r.kode_ruang %}selected{% endif %}>
+                        {{ r.kode_ruang }} - {{ r.ruang }} ({{ r.nama_kategori }})
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <!-- Jam Awal -->
+                <div class="col-md-6">
+                  <label for="jam_awal" class="form-label">Jam Awal</label>
+                  <input 
+                    type="number" 
+                    id="jam_awal" 
+                    name="jam_awal" 
+                    class="form-control" 
+                    min="1" max="10"
+                    value="{{ request.form.jam_awal if request.method == 'POST' else detail.jam_awal }}" 
+                    required>
+                </div>
+
+                <!-- Jam Akhir -->
+                <div class="col-md-6">
+                  <label for="jam_akhir" class="form-label">Jam Akhir</label>
+                  <input 
+                    type="number" 
+                    id="jam_akhir" 
+                    name="jam_akhir" 
+                    class="form-control" 
+                    min="1" max="10"
+                    value="{{ request.form.jam_akhir if request.method == 'POST' else detail.jam_akhir }}" 
+                    required>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <!-- Jumlah Peserta -->
+                <div class="col-md-6">
+                  <label for="jml_peserta" class="form-label">Jumlah Peserta</label>
+                  <input 
+                    type="number" 
+                    id="jml_peserta" 
+                    name="jml_peserta" 
+                    class="form-control" 
+                    value="{{ request.form.jml_peserta if request.method == 'POST' else detail.jml_peserta }}" 
+                    required>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-secondary me-2">Batal</a>
+                <button type="submit" class="btn btn-warning">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- jQuery dan Select2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('.select2-multiple').select2({
+      placeholder: "Pilih dosen...",
+      width: '100%'
+    });
+  });
+</script>
+
+{% include 'footer.html' %}

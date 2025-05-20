@@ -67,6 +67,23 @@ class DetailMataKuliah:
         return [mk.to_dict() for mk in mk_dict.values()]
 
     @staticmethod
+    def cari_by_kode(kode_mk):
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM detail_mk WHERE kode_mk = %s", (kode_mk,))
+        rows = cursor.fetchall()
+        conn.close()
+
+        if not rows:
+            return None
+
+        mk = DetailMataKuliah(rows[0])
+        for row in rows[1:]:
+            mk.tambah_dosen(row['dosen'])
+
+        return mk.to_dict()
+
+    @staticmethod
     def dengan_format_html():
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
@@ -89,3 +106,54 @@ class DetailMataKuliah:
             hasil.append(data)
 
         return hasil
+    
+class BaseModel:
+    def __init__(self, db):
+        self.db = db
+
+    def get_total(self):
+        """Method default, akan dioverride oleh child class."""
+        raise NotImplementedError("Subclasses must implement this method.")
+
+class JadwalModel(BaseModel):
+    def get_total(self):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT COUNT(*) AS total FROM jadwal")
+        result = cursor.fetchone()
+        cursor.close()
+        return {
+            "nama": "Jadwal",
+            "total": result[0] if result else 0
+        }
+
+class DosenModel(BaseModel):
+    def get_total(self):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT COUNT(*) AS total FROM dosen")
+        result = cursor.fetchone()
+        cursor.close()
+        return {
+            "nama": "Dosen",
+            "total": result[0] if result else 0
+        }
+class RuangModel(BaseModel):
+    def get_total(self):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT COUNT(*) AS total FROM ruang")
+        result = cursor.fetchone()
+        cursor.close()
+        return {
+            "nama": "Ruang",
+            "total": result[0] if result else 0
+        }
+
+class OfferingModel(BaseModel):
+    def get_total(self):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT COUNT(*) AS total FROM offering")
+        result = cursor.fetchone()
+        cursor.close()
+        return {
+            "nama": "Offering",
+            "total": result[0] if result else 0
+        }

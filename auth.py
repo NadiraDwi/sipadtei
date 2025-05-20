@@ -14,8 +14,8 @@ def check_login(username, password):
     conn.close()
 
     if admin and hashlib.md5(password.encode()).hexdigest() == admin['password']:
-        return True
-    return False
+        return admin   # <-- return admin dict, bukan True
+    return None
 
 # Halaman login
 @auth_bp.route("/", methods=["GET", "POST"])
@@ -24,9 +24,12 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        if check_login(username, password):
-            session['username'] = username  # Simpan username di session
-            return redirect(url_for('dashboard.dashboard'))  # Ubah sesuai dengan route dashboard kamu
+        admin = check_login(username, password)
+        if admin:
+            session['username'] = admin['username']
+            session['id_admin'] = admin['id_admin']
+            print("DEBUG login session:", dict(session))
+            return redirect(url_for('dashboard.dashboard'))
         else:
             return "Login Failed. Please check your credentials."
 
