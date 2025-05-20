@@ -33,12 +33,8 @@
             <div class="card-body">
                 <p>Username: {{ admin.username }}</p>
                 <p>Nama Lengkap: {{ admin.nama }}</p>
-                <a
-                    class="btn btn-dark"
-                    href="{{ url_for('auth.logout') }}"
-                    >
-                    Logout
-                </a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-info btn-sm">Logout</a>
+                <a href="{{ url_for('auth.edit_password') }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit Password</a>
             </div>
         </div>
         </div>
