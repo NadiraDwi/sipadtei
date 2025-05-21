@@ -60,12 +60,12 @@ def logout():
 
 class AdminManager:
     def __init__(self, id_admin):
-        self.id_admin = id_admin
-        self.conn = get_db_connection()
+        self._id_admin = id_admin
+        self._conn = get_db_connection()
 
     def check_password(self, password):
-        cursor = self.conn.cursor(dictionary=True)
-        cursor.execute("SELECT password FROM admin WHERE id_admin = %s", (self.id_admin,))
+        cursor = self._conn.cursor(dictionary=True)
+        cursor.execute("SELECT password FROM admin WHERE id_admin = %s", (self._id_admin,))
         admin = cursor.fetchone()
         cursor.close()
         if admin and hashlib.md5(password.encode()).hexdigest() == admin['password']:
@@ -73,11 +73,11 @@ class AdminManager:
         return False
 
     def update_password(self, new_password):
-        cursor = self.conn.cursor()
-        cursor.execute("UPDATE admin SET password = %s WHERE id_admin = %s", (new_password, self.id_admin))
-        self.conn.commit()
+        cursor = self._conn.cursor()
+        cursor.execute("UPDATE admin SET password = %s WHERE id_admin = %s", (new_password, self._id_admin))
+        self._conn.commit()
         cursor.close()
-        self.conn.close()
+        self._conn.close()
 
 # Route edit password
 @auth_bp.route("/edit_password", methods=["GET", "POST"], endpoint='edit_password')
