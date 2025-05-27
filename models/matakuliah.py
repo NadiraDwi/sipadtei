@@ -1,4 +1,6 @@
-from koneksi import get_db_connection
+from koneksi import DatabaseConnection
+
+db = DatabaseConnection()
 
 class MatakuliahModel:
     def __init__(self, db):
@@ -99,7 +101,7 @@ class MatakuliahModel:
         if not self.__kode_mk:
             raise ValueError("kode_mk belum diset. Pastikan get_detail() dipanggil dulu atau set_kode_mk() digunakan.")
 
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
 
         # Panggil stored procedure dengan parameter kode_mk

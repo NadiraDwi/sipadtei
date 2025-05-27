@@ -1,4 +1,6 @@
-from koneksi import get_db_connection
+from koneksi import DatabaseConnection
+
+db = DatabaseConnection()
 
 class Offering:
     def __init__(self, id_off=None, nama_off=None):
@@ -19,7 +21,7 @@ class Offering:
 
     @staticmethod
     def semua():
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM offering")
         rows = cursor.fetchall()
@@ -28,7 +30,7 @@ class Offering:
         return [Offering(r['id_off'], r['nama_off']) for r in rows]
 
     def simpan(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO offering (id_off, nama_off) VALUES (%s, %s)",
@@ -40,7 +42,7 @@ class Offering:
 
     @staticmethod
     def cari(id_off):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM offering WHERE id_off = %s", (id_off,))
         row = cursor.fetchone()
@@ -49,7 +51,7 @@ class Offering:
         return Offering(row['id_off'], row['nama_off']) if row else None
 
     def update(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute(
             "UPDATE offering SET nama_off = %s WHERE id_off = %s",
@@ -60,7 +62,7 @@ class Offering:
         conn.close()
 
     def hapus(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute("DELETE FROM offering WHERE id_off = %s", (self.__id_off,))
         conn.commit()

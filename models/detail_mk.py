@@ -1,4 +1,6 @@
-from koneksi import get_db_connection
+from koneksi import DatabaseConnection
+
+db = DatabaseConnection()
 
 class DetailMataKuliah:
     def __init__(self, data):
@@ -50,7 +52,7 @@ class DetailMataKuliah:
 
     @staticmethod
     def semua():
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM detail_mk")
         rows = cursor.fetchall()
@@ -68,7 +70,7 @@ class DetailMataKuliah:
 
     @staticmethod
     def cari_by_kode(kode_mk):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM detail_mk WHERE kode_mk = %s", (kode_mk,))
         rows = cursor.fetchall()
@@ -85,7 +87,7 @@ class DetailMataKuliah:
 
     @staticmethod
     def dengan_format_html():
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM detail_mk")
         rows = cursor.fetchall()

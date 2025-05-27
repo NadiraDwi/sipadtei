@@ -1,4 +1,6 @@
-from koneksi import get_db_connection
+from koneksi import DatabaseConnection
+
+db = DatabaseConnection()
 
 class Dosen:
     def __init__(self, nidn=None, nama_dosen=None, jabatan=None):
@@ -26,7 +28,7 @@ class Dosen:
 
     @staticmethod
     def semua():
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM dosen")
         rows = cursor.fetchall()
@@ -35,7 +37,7 @@ class Dosen:
         return [Dosen(r['nidn'], r['nama_dosen'], r['jabatan']) for r in rows]
 
     def simpan(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO dosen (nidn, nama_dosen, jabatan) VALUES (%s, %s, %s)",
@@ -47,7 +49,7 @@ class Dosen:
 
     @staticmethod
     def cari(nidn):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM dosen WHERE nidn = %s", (nidn,))
         row = cursor.fetchone()
@@ -56,7 +58,7 @@ class Dosen:
         return Dosen(row['nidn'], row['nama_dosen'], row['jabatan']) if row else None
 
     def update(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute(
             "UPDATE dosen SET nama_dosen = %s, jabatan = %s WHERE nidn = %s",
@@ -67,7 +69,7 @@ class Dosen:
         conn.close()
 
     def hapus(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute("DELETE FROM dosen WHERE nidn = %s", (self.__nidn,))
         conn.commit()

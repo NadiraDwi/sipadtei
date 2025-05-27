@@ -1,5 +1,7 @@
 from models.kategori import Kategori
-from koneksi import get_db_connection
+from koneksi import DatabaseConnection
+
+db = DatabaseConnection()
 
 class Ruang(Kategori):
     def __init__(self, kode_ruang, gedung, lantai, ruang, max_peserta, id_kategori, nama_kategori):
@@ -32,7 +34,7 @@ class Ruang(Kategori):
 
     @staticmethod
     def semua():
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("""
             SELECT r.kode_ruang, r.gedung, r.lantai, r.ruang, r.max_peserta,
@@ -61,7 +63,7 @@ class Ruang(Kategori):
 
     @staticmethod
     def get_by_kode(kode_ruang):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("""
             SELECT r.*, k.nama_kategori 
@@ -85,7 +87,7 @@ class Ruang(Kategori):
         return None
 
     def update(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE ruang SET gedung=%s, lantai=%s, ruang=%s, max_peserta=%s, id_kategori=%s 
@@ -96,7 +98,7 @@ class Ruang(Kategori):
         conn.close()
 
     def hapus(self):
-        conn = get_db_connection()
+        conn = db.connect()
         cursor = conn.cursor()
         cursor.execute("DELETE FROM ruang WHERE kode_ruang = %s", (self.kode_ruang,))
         conn.commit()
