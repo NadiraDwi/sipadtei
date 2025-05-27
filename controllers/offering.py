@@ -6,8 +6,8 @@ class OfferingController:
         self.offering_bp = Blueprint('offering', __name__)
         self.offering_bp.add_url_rule("/offering", view_func=self.list_offering)
         self.offering_bp.add_url_rule("/offering/tambah", view_func=self.tambah_offering, methods=["GET", "POST"])
-        self.offering_bp.add_url_rule("/offering/edit/<int:id>", view_func=self.edit_offering, methods=["GET", "POST"])
-        self.offering_bp.add_url_rule("/offering/hapus/<int:id>", view_func=self.hapus_offering, methods=["POST"])
+        self.offering_bp.add_url_rule("/offering/edit/<string:id>", view_func=self.edit_offering, methods=["GET", "POST"])
+        self.offering_bp.add_url_rule("/offering/hapus/<string:id>", view_func=self.hapus_offering, methods=["POST"])
 
     def list_offering(self):
         semua_offering = Offering.semua()
